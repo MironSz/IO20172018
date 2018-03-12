@@ -1,0 +1,85 @@
+\documentclass[a4paper]{scrreprt}
+
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+
+\usepackage{enumitem}
+\usepackage[bookmarks=true]{hyperref}
+
+\hypersetup{
+    bookmarks=false,
+    pdftitle={Specyfikacja Wymagań Trend Spotter},
+    pdfauthor={Marek Smolarczyk},
+}
+
+\def\version{1.0}
+
+\begin{document}
+
+\begin{flushright}\begin{bfseries}
+	\Huge Specyfikacja Wymagań\\
+	\vspace{1.5cm}
+	\huge dla systemu\\
+	\vspace{1.5cm}
+	\Huge Trend Spotter\\
+	\vfill
+	\LARGE Wersja \version\\
+\end{bfseries}\end{flushright}
+
+\chapter*{Historia Wersji}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|l|}
+        \hline
+	    \textbf{Wersja} & \textbf{Data} & \textbf{Autor / Autorzy} & \multicolumn{1}{|c|}{\textbf{Opis}}\\
+        \hline
+	    1.0 & 12.03.2018 & Marek Smolarczyk & Struktura dokumentu i podstawowe wymagania\\
+        \hline
+	     & & & \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\newpage
+
+\section*{Opis ogólny}
+System ma umożliwiać wykrywanie kształtujących się trendów i analizę historii popularności różnych tematów. Z systemu będą mogli korzystać zarówno klienci indywidualni jak i firmy i organizacje.
+
+Na system składają się serwer WWW oraz crawler.
+
+\section*{Założenia i zależności}
+System może gromadzić anonimowe informacje o sposobie użytkowania aplikacji.
+
+System nie udostępnia funkcji rejestracji w usłudze.
+
+W dalszej części dokumentu zakładamy, że użytkownik korzysta z aplikacji na jednej z podanych niżej przeglądarek:
+\begin{enumerate}[label=\textbullet]
+	\itemsep-0.1cm
+	\item Firefox (min. wersja $\cdot$)
+	\item Chrome $\cdots$
+\end{enumerate}
+
+\section*{Wymagania funkcjonalne}
+Wymagania graficzne aplikacji (wraz z przykładami) opisane są w pliku \href{}{$\cdots$}.
+
+Aplikacja będzie umożliwiała korzystanie z przetworzonych danych zgromadzonych przez crawler'a w następujące sposoby:
+\begin{enumerate}
+	\itemsep-0.1cm
+	\item wyświetlanie historii popularności wyszukanych wyrazów, fraz;
+	\item wyświetlanie najpopularniejszych zapytań;
+	\item wyświetlanie wyrazów, fraz szybko zyskujących na popularności;
+	\item ograniczanie zapytań do poszczególnych serwisów.
+\end{enumerate}
+
+\section*{Wymagania niefunkcjonalne}
+Crawler będzie obsługiwał maksymalnie 10 serwisów. Dane zebrane przez crawler'a będą przechowywane w bazie danych nie dłużej niż 6 miesięcy.
+
+Dane przechowywane przez system nie będą związane z użytkownikami, tak więc nie będą koniecznie szyfrowane. System będzie umożliwiał ustanowienie bezpiecznego (szyfrowanego) połączenia z serwerem.
+
+System zapewnia obsługę pojedynczego zapytania użytkownika średnio w nie więcej niż 5 sekund.
+
+System będzie umożliwiał jednoczesne korzystanie z usługi przez nie więcej niż 100 użytkowników.
+
+System zapewnia średni czas pomiędzy awariami nie krótszy niż 2000 godzin oraz średni czas naprawy około 12 godzin.
+
+\end{document}
