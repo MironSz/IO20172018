@@ -65,21 +65,40 @@ Wymagania graficzne aplikacji (wraz z przykładami) opisane są w pliku \href{}{
 Aplikacja będzie umożliwiała korzystanie z przetworzonych danych zgromadzonych przez crawler'a w następujące sposoby:
 \begin{enumerate}
 	\itemsep-0.1cm
-	\item wyświetlanie historii popularności wyszukanych wyrazów, fraz;
-	\item wyświetlanie najpopularniejszych zapytań;
+	\item wyświetlanie historii popularności wyszukanych wyrazów, fraz odpowiadających wyrażeniom regularnym;
+	\item wyświetlanie najpopularniejszych zapytań użytkowników;
 	\item wyświetlanie wyrazów, fraz szybko zyskujących na popularności;
 	\item ograniczanie zapytań do poszczególnych serwisów.
 \end{enumerate}
 
 \section*{Wymagania niefunkcjonalne}
-Crawler będzie obsługiwał maksymalnie 10 serwisów. Dane zebrane przez crawler'a będą przechowywane w bazie danych nie dłużej niż 6 miesięcy.
+\begin{enumerate}
+	\itemsep-0.1cm
+	\item Crawler będzie obsługiwał maksymalnie 10 serwisów. Dane zebrane przez crawler'a będą przechowywane w bazie danych nie dłużej niż 6 miesięcy.
 
-Dane przechowywane przez system nie będą związane z użytkownikami, tak więc nie będą koniecznie szyfrowane. System będzie umożliwiał ustanowienie bezpiecznego (szyfrowanego) połączenia z serwerem.
+	\item Dane przechowywane przez system  będą związane z użytkownikami, tak więc będzie koniecznie szyfrowane.
 
-System zapewnia obsługę pojedynczego zapytania użytkownika średnio w nie więcej niż 5 sekund.
+	\item System zapewnia obsługę pojedynczego zapytania użytkownika średnio w nie więcej niż 5 sekund.
 
-System będzie umożliwiał jednoczesne korzystanie z usługi przez nie więcej niż 100 użytkowników.
+	\item System będzie umożliwiał jednoczesne korzystanie z usługi przez nie więcej niż 10 użytkowników.
 
-System zapewnia średni czas pomiędzy awariami nie krótszy niż 2000 godzin oraz średni czas naprawy około 12 godzin.
+	\item System zapewnia średni czas pomiędzy awariami nie krótszy niż 2000 godzin oraz średni czas naprawy około 12 godzin.
 
 \end{document}
+
+-odporność na ataki sql-injection ze strony zarówno zapytań jak i zebranych komentarzy F
+-logowanie, przetrzymywanie i wyświetlanie histori zapytań, możliwość uruchomienia zapytania z poziomu histori zapytań. Logowanie za pomocą gmaila i facebooka F
+
+-Ograniczenie serwisów poprzez wybór z listy, można wybrać wiele F
+-Crawler crawluje każdą domenę niezależnie. Administrator ma opcję wymusznie na crawlerze przwejrzenia całej domeny, operacja ta może zając wiele dni. NF
+-Crawler nie powinien wchodzić na tę samą domenę częściej niż co 10s. NF
+-Działenie crawlera opiera się na powracanie na wybrane strony z częstotliwością zależącą od dat zebrancyh na danej stronie komentarzy. Crawler częściej odwiedza strony nowsze. NF
+-Crawler z każdej strony zbiera komentarze i daty ich utworzenia poczym przesyła je do bazy danych. NF
+-Baza danych przetrzymuje pary komentarz, data utworzenia, link do strony gdzie został znaleziony. NF
+-Baza danych przetrzymuje tylko pierwsze 8 tysięcy znaków każdego komentarza. NF
+-Komentarze są przetrzymywane przy pomocy kodowania UTF8 NF
+-Przy wyszukiwaniu jest checkbox czy rozróżniać polskie znaki i wielkie i małe litery F
+-Średni czas upływający od storzenia komentarza do jego zaindeksowania powinien być nie większy niż 24h NF
+-Będzie utworzona lista słów mało znaczących słów, pomijanych przy wyświetlaniu statystyk F
+-Zamiast regexa wyszukujemy pojedynczych lub kilku słów w bazie danych F
+
