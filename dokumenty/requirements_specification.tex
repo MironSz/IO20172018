@@ -7,15 +7,15 @@
 \usepackage[bookmarks=true]{hyperref}
 
 \hypersetup{
-    bookmarks=false,
     pdftitle={Specyfikacja Wymagań Trend Spotter},
     pdfauthor={Marek Smolarczyk},
 }
 
-\def\version{1.0}
+\def\version{1.2}
 
 \begin{document}
 
+\thispagestyle{empty}
 \begin{flushright}\begin{bfseries}
 	\Huge Specyfikacja Wymagań\\
 	\vspace{1.5cm}
@@ -26,79 +26,112 @@
 	\LARGE Wersja \version\\
 \end{bfseries}\end{flushright}
 
-\chapter*{Historia Wersji}
+\newpage
+
+\section*{Historia Wersji}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|}
+    \begin{tabular}{|c|c|c|p{6cm}|}
         \hline
 	    \textbf{Wersja} & \textbf{Data} & \textbf{Autor / Autorzy} & \multicolumn{1}{|c|}{\textbf{Opis}}\\
         \hline
 	    1.0 & 12.03.2018 & Marek Smolarczyk & Struktura dokumentu i podstawowe wymagania\\
         \hline
-	     & & & \\
+	    1.1 & 19.03.2018 & Miron Szewczyk & Specyfikacja wymagań\\
+	    \hline
+	    1.2 & 26.03.2018 & Michał Pawłowski & Kilka poprawek\\
         \hline
     \end{tabular}
 \end{center}
+\vspace{1cm}
+
+\section*{Zespół}
+\begin{enumerate}
+	\itemsep-0.1cm
+    \item Marek Smolarczyk (386007)
+    \item Miron Szewczyk (383504)
+    \item Michał Pawłowski (371303)
+    \item Bartek Wrona (386389)
+\end{enumerate}
 
 \newpage
 
 \section*{Opis ogólny}
-System ma umożliwiać wykrywanie kształtujących się trendów i analizę historii popularności różnych tematów. Z systemu będą mogli korzystać zarówno klienci indywidualni jak i firmy i organizacje.
-
+System ma umożliwiać wykrywanie kształtujących się trendów i analizę historii popularności różnych tematów w serwisach internetowych. Z systemu będą mogli korzystać zarówno klienci indywidualni jak i firmy, i organizacje.\\
 Na system składają się serwer WWW oraz crawler.
 
 \section*{Założenia i zależności}
-System może gromadzić anonimowe informacje o sposobie użytkowania aplikacji.
-
-System nie udostępnia funkcji rejestracji w usłudze.
-
-W dalszej części dokumentu zakładamy, że użytkownik korzysta z aplikacji na jednej z podanych niżej przeglądarek:
-\begin{enumerate}[label=\textbullet]
+\begin{enumerate}
 	\itemsep-0.1cm
-	\item Firefox (min. wersja $\cdot$)
-	\item Chrome $\cdots$
+	\item System może gromadzić anonimowe informacje o sposobie użytkowania aplikacji.
+    \item System wymaga rejestracji w usłudze.
+    \item System gwarantuje prawidłowe działanie aplikacji na przeglądarkach:
+        \begin{enumerate}[label=\textbullet]
+	        \itemsep-0.1cm
+	        \item Firefox (min. wersja $\cdot$),
+	        \item Chrome (min. wersja $\cdot$).
+        \end{enumerate}
 \end{enumerate}
 
 \section*{Wymagania funkcjonalne}
-Wymagania graficzne aplikacji (wraz z przykładami) opisane są w pliku \href{}{$\cdots$}.
-
-Aplikacja będzie umożliwiała korzystanie z przetworzonych danych zgromadzonych przez crawler'a w następujące sposoby:
+Aplikacja będzie umożliwiała korzystanie z przetworzonych danych zgromadzonych przez crawlera w następujące sposoby:
 \begin{enumerate}
 	\itemsep-0.1cm
-	\item wyświetlanie historii popularności wyszukanych wyrazów, fraz odpowiadających wyrażeniom regularnym;
-	\item wyświetlanie najpopularniejszych zapytań użytkowników;
-	\item wyświetlanie wyrazów, fraz szybko zyskujących na popularności;
-	\item ograniczanie zapytań do poszczególnych serwisów.
+	\item Wyświetlanie historii popularności wpisanych przez użytkownika wyrazów lub  fraz odpowiadających zbiorom wyrazów.
+	\item Wyświetlanie najpopularniejszych zapytań użytkowników.
+	\item Wyświetlanie wyrazów, fraz szybko zyskujących na popularności (podczas wyliczania ogólnych statystyk pomijane są wyrazy z wcześniej przygotowanej listy, na przykład spójniki). % Czy ten komentarz o statystykach powinien być w wymaganiach funkcjonalnych?
+\end{enumerate}
+Dodatkowo użytkownik będzie miał możliwość:	
+\begin{enumerate}
+	\setcounter{enumi}{3}
+	\itemsep-0.1cm
+	\item Ograniczania zapytań do poszczególnych serwisów, poprzez wybór jednego lub wielu serwisów z rozwijanej listy.
+	\item Wyświetlenia wszystkich lub części komentarzy spełniających jego kryteria wyszukiwania.
+    \item Włączenia za pomocą checkboxa ignorowania polskich znaków w danym zapytaniu.
+    \item Włączenia za pomocą checkboxa ignorowania wielkich liter w danym zapytaniu.
+\end{enumerate}
+Pozostałe wymagania:
+\begin{enumerate}
+	\setcounter{enumi}{7}
+	\itemsep-0.1cm
+	\item Korzystanie z aplikacji  wymaga zarejestrowania i zalogowania w serwisie.  Możliwa jest rejestracja za pomocą kont Facebook i Gmail.
+	\item Dla każdego użytkownika jest przetrzymywana historia jego zapytań. Jest możliwe ponowne wykorzystanie dawnych zapytań poprzez wybranie ich z listy.
 \end{enumerate}
 
 \section*{Wymagania niefunkcjonalne}
 \begin{enumerate}
 	\itemsep-0.1cm
-	\item Crawler będzie obsługiwał maksymalnie 10 serwisów. Dane zebrane przez crawler'a będą przechowywane w bazie danych nie dłużej niż 6 miesięcy.
+	\item Crawler  obsługuje maksymalnie 10 serwisów. Dane zebrane przez crawler'a są przechowywane w bazie danych nie dłużej niż 6 miesięcy.
 
-	\item Dane przechowywane przez system  będą związane z użytkownikami, tak więc będzie koniecznie szyfrowane.
+	\item Dane przechowywane przez system  są związane z użytkownikami, tak więc jest koniecznie szyfrowane.
 
 	\item System zapewnia obsługę pojedynczego zapytania użytkownika średnio w nie więcej niż 5 sekund.
 
-	\item System będzie umożliwiał jednoczesne korzystanie z usługi przez nie więcej niż 10 użytkowników.
+	\item System  umożliwia jednoczesne płynne korzystanie z usługi przez nie więcej niż 10 użytkowników.
 
 	\item System zapewnia średni czas pomiędzy awariami nie krótszy niż 2000 godzin oraz średni czas naprawy około 12 godzin.
+	
+	\item Przetrzymywane jest tylko pierwsze 8000 znaków każdego zebranego komentarza.
+	
+	\item Baza danych jest odporna na ataki typu SQL-injection.
+	
+	\item Każda strona jest crawlowana niezależnie. Żadna crawlowana strona nie dostanie od crawlera więcej niż jednego zapytania na sekundę.
+	
+	\item Administrator aplikacji ma opcje wymuszenia na crawlerze przejrzenia całej strony. Czynność ta jest bardzo czasochłonna i może zająć do tygodnia.
+	
+	\item Działanie crawlera opiera się na powracaniu pod wybrane linki z częstotliwością zależącą od dat zebranych pod nimi komentarzy. Im nowsza strona i im częściej pojawiają się na niej komentarze, tym częściej crawler tam wraca.
+	
+	\item W bazie danych przetrzymywane są komentarze wraz z datą ich napisania, datą ich zaindeksowania przez crawlera i linkiem, pod jakim zostały znalezione.
+	
+	\item Komentarze są przetrzymywane w bazie danych za pomocą kodowania UTF8.
+	
+	\item Średni czas od powstania komentarza do jego zaindeksowania jest nie większy niż 24h.
+	
+	\item Wymagania graficzne aplikacji (wraz z przykładami) opisane są w pliku {$\ldots$} .
+	
+
+\end{enumerate}
+
+
 
 \end{document}
-
--odporność na ataki sql-injection ze strony zarówno zapytań jak i zebranych komentarzy F
--logowanie, przetrzymywanie i wyświetlanie histori zapytań, możliwość uruchomienia zapytania z poziomu histori zapytań. Logowanie za pomocą gmaila i facebooka F
-
--Ograniczenie serwisów poprzez wybór z listy, można wybrać wiele F
--Crawler crawluje każdą domenę niezależnie. Administrator ma opcję wymusznie na crawlerze przwejrzenia całej domeny, operacja ta może zając wiele dni. NF
--Crawler nie powinien wchodzić na tę samą domenę częściej niż co 10s. NF
--Działenie crawlera opiera się na powracanie na wybrane strony z częstotliwością zależącą od dat zebrancyh na danej stronie komentarzy. Crawler częściej odwiedza strony nowsze. NF
--Crawler z każdej strony zbiera komentarze i daty ich utworzenia poczym przesyła je do bazy danych. NF
--Baza danych przetrzymuje pary komentarz, data utworzenia, link do strony gdzie został znaleziony. NF
--Baza danych przetrzymuje tylko pierwsze 8 tysięcy znaków każdego komentarza. NF
--Komentarze są przetrzymywane przy pomocy kodowania UTF8 NF
--Przy wyszukiwaniu jest checkbox czy rozróżniać polskie znaki i wielkie i małe litery F
--Średni czas upływający od storzenia komentarza do jego zaindeksowania powinien być nie większy niż 24h NF
--Będzie utworzona lista słów mało znaczących słów, pomijanych przy wyświetlaniu statystyk F
--Zamiast regexa wyszukujemy pojedynczych lub kilku słów w bazie danych F
-
