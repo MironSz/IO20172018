@@ -1,0 +1,231 @@
+
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[bookmarks=true]{hyperref}
+
+\hypersetup{
+    pdftitle={Przypadki użycia Trend Spotter},
+    pdfauthor={Bartłomiej Wrona},
+}
+
+\def\version{1.1}
+
+\begin{document}
+
+
+\titleformat*{\subsubsection}{\normalfont\fontsize{10}{14}\selectfont}
+
+\thispagestyle{empty}
+\begin{flushright}\begin{bfseries}
+	\Huge Przypadki użycia\\
+	\vspace{1.5cm}
+	\huge dla systemu\\
+	\vspace{1.5cm}
+	\Huge Trend Spotter\\
+	\vfill
+	\LARGE Wersja \version\\
+\end{bfseries}\end{flushright}
+
+
+\newpage
+
+\subsection*{Historia Wersji}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|p{6cm}|}
+        \hline
+	    \textbf{Wersja} & \textbf{Data} & \textbf{Autor / Autorzy} & \multicolumn{1}{|c|}{\textbf{Opis}}\\
+        \hline
+        0.0 & 12.03.2018 & Marek Smolarczyk & Struktura dokumentu\\
+        \hline
+	    1.0 & 16.04.2018 & Bartłomiej Wrona & Podstawowe przypadki użycia\\
+	    \hline
+	    1.1 & 16.04.2018 & Bartłomiej Wrona & Poprawienie przypadków użycia\\
+	    \hline
+    \end{tabular}
+\end{center}
+\vspace{1cm}
+
+\subsection*{Zespół}
+\begin{enumerate}
+	\itemsep-0.1cm
+    \item Marek Smolarczyk (386007)
+    \item Miron Szewczyk (383504)
+    \item Michał Pawłowski (371303)
+    \item Bartek Wrona (386389)
+\end{enumerate}
+
+\newpage
+
+
+\section{Logowanie i rejestracja}
+\subsection*{Opis}
+Użytkownik może logować się za pomocą konta Google, Facebook lub przy użyciu osobnego konta w serwisie Trend Spotter. Logowanie odbywa się za pośrednictwem strony internetowej. 
+\subsection*{Aktorzy}
+\begin{enumerate}
+\item Użytkownik
+\item Serwer
+\end{enumerate}
+
+\subsection*{Stan początkowy}
+Użytkownik jest niezarejestrowany lub niezalogowany.
+
+\subsection{Przebieg}
+
+\subsubsection{Jeśli adres IP użytkownika został umieszczony na liście blokowanych adresów użytkownikowi nie wyświetla (przez czas blokady \ref{login-czas-blokady}) się ikona logowania i rejestracji w pasku nawigacyjnym strony internetowej.} 
+
+\subsubsection{Użytkownik klika w ikonę logowania i rejestracji.}
+
+\subsubsection{Jeśli użytkownik chce się zalogować to przechodzi do punktu \ref{wybor-login}}
+
+\subsubsection{Użytkownikowi zostaje wyświetlony formularz rejestracyjny.}
+
+
+\subsubsection{Użytkownik wprowadza do formularza email oraz hasło i zatwierdza go klikając guzik.}
+
+\subsubsection{Serwer zapamiętuje informacje z formularza w bazie danych.}
+
+\subsubsection{Użytkownik wybiera jedną z 3 dostępnych metod logowania: za pomocą konta Google \ref{login-google}, konta Facebook \ref{login-fb}, lub konta w naszym serwisie. \label{wybor-login}}
+
+\subsubsection{Użytkownikowi zostaje wyświetlony formularz do logowania.}
+
+\subsubsection{Użytkownik wprowadza do formularza login i hasło i zatwierdza go klikając guzik.}
+
+\subsubsection{Serwer sprawdza czy dane użytkownika są poprawne.}
+
+\subsubsection{Jeśli dane użytkownika są niepoprawne i liczba niepoprawnych prób logowania nie przekracza limitu dozwolonych logowań \ref{limit-logowan}, to zostaje ponownie przekierowany do formularza logującego \ref{wybor-login}}.
+
+\subsubsection{Jeśli liczba niepoprawnych prób została przekroczona, użytkownik zostaje przekierowany na stronę główną, a IP z którego próbował się zalogować zostaje zablokowany na określony czas \ref{login-czas-blokady}}
+
+\subsubsection{Użytkownik zostaje zalogowany i przekierowany na stronę główną. \label{login-ok}}
+
+\subsection{Alternatywny przypadek użycia, logowanie za pomocą konta Facebook. \label{login-fb}}
+
+\subsubsection{Użytkownik zostaje przekierowany na stronę Facebook'a.}
+
+\subsubsection{Jeśli użytkownik już jest zalogowany to następuje skok do \ref{login-fb-zgoda}.}
+
+\subsubsection{Użytkownik wprowadza login i hasło do konta Facebook.}
+
+\subsubsection{Użytkownik zgadza się na przekazanie informacji o adresie email do serwera. Nastepuje skok do \ref{login-ok}. \label{login-fb-zgoda}}
+
+
+\subsection{Alternatywny przypadek użycia, logowanie za pomocą konta Google. \label{login-google}}
+
+\subsubsection{Użytkownik zostaje przekierowany na stronę Google'a.}
+
+\subsubsection{Jeśli użytkownik jest zalogowany następuje skok do \ref{login-google-zgoda}.}
+
+\subsubsection{Użytkownik wybiera jedno z zapamiętanych kont lub loguje się na konto Google.}
+
+\subsubsection{Użytkownik zgadza się na przekazanie informacji o adresie email do serwera. Nastepuje skok do \ref{login-ok}. \label{login-google-zgoda}}
+
+
+\subsection{Wymagania}
+
+\subsubsection{Górne ograniczenie liczby dozwolonych błędnych logowań w ciągu godziny wynosi 5. \label{limit-logowan} }
+
+\subsubsection{Czas blokady spowodowanej wielokrotnym nieudanym logowaniem wynosi 15 minut. Po tym czasie liczba błędnych wprowadzeń jest zerowana, a blokada zostaje zdjęta. \label{login-czas-blokady}}
+
+\subsubsection{Logowanie za pomocą konta Facebook / Google jest możliwe tylko w przypadku posiadania konta w danym serwisie.}
+
+\subsection*{Stan końcowy}
+Użytkownik jest zarejestrowany i zalogowany.
+
+
+\newpage
+
+
+\section{Wyświetlanie historii popularności wpisanych przez użytkownika wyrazów lub fraz
+odpowiadających zbiorom wyrazów.}
+
+\subsection*{Opis}
+Użytkownikowi zostaje przedstawiony diagram związany z historią popularności wprowadzonych wyrazów. Diagram ma odzwierciedlać względną popularność wprowadzonych wyrazów względem najpopularniejszych wyrazów.
+
+\subsection*{Aktorzy}
+\begin{enumerate}
+\item Użytkownik
+
+\end{enumerate}
+
+\subsection*{Stan początkowy}
+Strona główna. Użytkownik jest zalogowany.
+
+\subsection{Przebieg}
+\subsubsection{Użytkownik klika w przycisk popularności (\ref{popularnosc}) w pasku nawigacyjnym.}
+\subsubsection{Użytkownik zostaje przekierowany do formularza.}
+\subsubsection{Użytkownik wpisuje wyrazy i frazy oddzielając je średnikami, a następnie zatwierdza. \label{popularnosc-formularz}}
+\subsubsection{Użytkownikowi zostaje przedstawiony diagram związany z historią popularności wprowadzonych słów, oraz formularz \ref{popularnosc-formularz}}
+
+\subsection{Wymagania}
+\subsubsection{Grafika powiązana z przyciskiem ma kojarzyć się użytkownikom z popularnością słów. \label{popularnosc}}
+\subsubsection{Diagram i formularz mają znajdować się na tej samej stronie. Użytkownik może wielokrotnie wpisywać swoje zapytania. Zatwierdzenie ma być ostatnią czynnością ze strony użytkownika przed wyświetleniem.}
+
+
+\subsection*{Stan końcowy}
+
+Strona wyświetlająca historię popularności. Użytkownik nadal jest zalogowany.
+
+\newpage
+
+\section{Wyświetlanie najpopularniejszych zapytań użytkowników.}
+\subsection*{Opis}
+Użytkownikowi wyświetlany jest ranking najpopularniejszych zapytań. W rankingu zamieszczone są informacje o:
+\begin{enumerate}
+\item miejscu w rankingu (obliczanym na podstawie liczby zapytań w okresie bazowym \ref{okres-bazowy})
+\item liczbie zapytań w ciągu ostatnich 3 okresów bazowych \ref{okres-bazowy}
+\item wyszukiwanej frazie
+\end{enumerate}
+
+\subsection*{Aktorzy}
+\begin{enumerate}
+\item Użytkownik
+\item Serwer
+
+\end{enumerate}
+
+\subsection*{Stan początkowy}
+Strona główna. Użytkownik jest zalogowany.
+
+\subsection{Przebieg}
+\subsubsection{Użytkownik klika w przycisk rankingowy w pasku nawigacyjnym. }
+\subsubsection{Serwer generuje ranking na podstawie posiadanych danych.}
+\subsubsection{Użytkownik zostaje przekierowany na pierwszą stronę rankingu.}
+\subsubsection{Użytkownik może dowolną liczbę razy kliknąć w numer innej strony, co powoduje przekierowanie go na inną stronę rankingową.}
+
+
+\subsection{Wymagania}
+
+
+\subsubsection{Okres bazowy wynosi 1 miesiąc. \label{okres-bazowy}}
+\subsubsection{Obrazek powiązany z przyciskiem rankingowym powinien być powszechnie kojarzony z rankingami.}
+\subsubsection{Ranking ma przypominać spaginowaną tabelę.}
+\subsubsection{Na każdej stronie rankingowej ma być conajwyżej 30 wpisów.}
+\subsubsection{Numery stron (niekoniecznie wszystkich) będące guzikami mają znajdować się pod tabelą.}
+
+\subsection*{Stan końcowy}
+Strona wyświetlająca popularność zapytania użytkowników. Użytkownik nadal jest zalogowany.
+
+
+\newpage
+
+\section{Lista pozostałych przypadków użycia}
+\begin{enumerate}
+	\item Wyświetlanie wyrazów, fraz szybko zyskujących na popularności (podczas wyliczania ogólnych statystyk pomijane są wyrazy z wcześniej przygotowanej listy, na przykład spójniki).
+	\item Wyświetlanie zapytań ograniczonych do poszczególnych serwisów, poprzez wybór jednego lub wielu serwisów z rozwijanej listy.
+	\item Wyświetlenia wszystkich lub części komentarzy spełniających jego kryteria wyszukiwania.
+    \item Włączenia za pomocą checkboxa ignorowania polskich znaków w danym zapytaniu.
+    \item Włączenia za pomocą checkboxa ignorowania wielkich liter w danym zapytaniu.
+	\item Dla każdego użytkownika jest przetrzymywana historia jego zapytań. Jest możliwe ponowne wykorzystanie dawnych zapytań poprzez wybranie ich z listy.
+
+
+
+\end{enumerate}
+
+
+\end{document}
