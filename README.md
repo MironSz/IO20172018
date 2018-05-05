@@ -7,12 +7,12 @@
 ### Włączanie środowiska wirtualnego
 source py_django/bin/activate
 
-### Wyłączanie środowsika wirtualnego
+### Wyłączanie środowiska wirtualnego
 deactivate
 
 ## Uruchamianie serwera
 * Włączamy środowisko wirtualne
-* Przeprowadzamy migracje, jeśli nie zrobione tego wcześniej (niektóre crawlery są odpalane w trakcie migracji) </br>
+* Przeprowadzamy migracje, jeśli nie zrobiono tego wcześniej (niektóre crawlery są odpalane w trakcie migracji) </br>
 python3 manage.py migrate
 * Właczamy serwer </br>
 python3 manage.py runserver
