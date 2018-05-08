@@ -1,0 +1,56 @@
+{% load static %}{% spaceless %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}TrendSpotter{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+
+    {% block head %}{% endblock %}
+
+</head>
+<body>
+
+<header>
+    <a href="/"><img class="logo" src="{% static 'img/logo.png' %}"/></a>
+    <nav><ul>
+        <li>
+            <a class="nav-link" href="/search">WYSZUKAJ</a>
+            <div class="popup-info">wyszukaj wybrane frazy</div>
+        </li>
+        <li>
+            <a class="nav-link" href="/topresults">RANKING</a>
+            <div class="popup-info">wyświetl ranking najpopularniejszych wyrazów</div>
+        </li>
+        <li>
+            <a class="nav-link" href="/login">ZALOGUJ</a>
+            <div class="popup-info">zaloguj się do serwisu</div>
+        </li>
+    </ul></nav>
+</header>
+
+<main>
+    {% block main %}{% endblock %}
+</main>
+
+<footer>
+    Lorem ipsum dolor sit amet
+</footer>
+
+<script>
+    var navPopups = document.querySelectorAll('nav .popup-info');
+
+    window.onmousemove = function(e) {
+        var x = e.clientX, y = e.clientY;
+        for (var i = 0; i < navPopups.length; i++) {
+            navPopups[i].style.top = (y + 15) + 'px';
+            navPopups[i].style.left = (x + 15) + 'px';
+        }
+    }
+</script>
+
+</body>
+</html>
+{% endspaceless %}
