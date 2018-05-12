@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}TrendSpotter{% endblock %}</title>
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 
     {% block head %}{% endblock %}
@@ -17,16 +18,16 @@
     <a href="/"><img class="logo" src="{% static 'img/logo.png' %}"/></a>
     <nav><ul>
         <li>
-            <a class="nav-link" href="/search">WYSZUKAJ</a>
-            <div class="popup-info">wyszukaj wybrane frazy</div>
+            <a class="nav-link" href="/search"><i class="fa fa-search"></i></a>
+            <div class="popup-info">WYSZUKAJ</div>
         </li>
         <li>
-            <a class="nav-link" href="/topresults">RANKING</a>
-            <div class="popup-info">wyświetl ranking najpopularniejszych wyrazów</div>
+            <a class="nav-link" href="/topresults"><i class="fas fa-list-ol"></i></a>
+            <div class="popup-info">RANKING</div>
         </li>
         <li>
-            <a class="nav-link" href="/login">ZALOGUJ</a>
-            <div class="popup-info">zaloguj się do serwisu</div>
+            <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i></a>
+            <div class="popup-info">ZALOGUJ</div>
         </li>
     </ul></nav>
 </header>
@@ -35,19 +36,18 @@
     {% block main %}{% endblock %}
 </main>
 
-<footer>
-    Lorem ipsum dolor sit amet
-</footer>
-
 <script>
-    var navPopups = document.querySelectorAll('nav .popup-info');
+    var navLinks = document.querySelectorAll('nav a.nav-link');
 
-    window.onmousemove = function(e) {
-        var x = e.clientX, y = e.clientY;
-        for (var i = 0; i < navPopups.length; i++) {
-            navPopups[i].style.top = (y + 15) + 'px';
-            navPopups[i].style.left = (x + 15) + 'px';
-        }
+    for (var i = 0; i < navLinks.length; i++) {
+        navLinks[i].addEventListener("mousemove", function (event) {
+            var x = event.clientX, y = event.clientY;
+            var popup = event.target.nextSibling;
+            if (popup) {
+                event.target.nextSibling.style.top = (y + 20) + 'px';
+                event.target.nextSibling.style.left = (x - 50) + 'px';
+            }
+        });
     }
 </script>
 

@@ -1,9 +1,10 @@
 
 body {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     border: 0;
     display: block;
+    max-width: 1440px;
     font-family: 'Graphik Web', Helvetica, Arial, sans-serif;
     background-color: #FFFFFF;
 }
@@ -21,7 +22,7 @@ header {
     margin: 10px 10px 10px 0;
     display: block;
     float: left;
-    height: 36px;
+    height: 38px;
 }
 
 nav {
@@ -42,7 +43,7 @@ nav li {
 }
 
 nav a {
-    padding: 20px 10px;
+    padding: 20px 20px;
     display: block;
     text-decoration: none;
     color: #777777;
@@ -50,8 +51,29 @@ nav a {
     font-weight: bold;
 }
 
+nav i {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .logo {
+        margin: 14px 10px 14px 0;
+        height: 30px;
+    }
+
+    nav a {
+        padding: 22px 16px;
+    }
+
+    nav i {
+        font-size: 16px;
+    }
+}
+
 .popup-info {
     display: none;
+    width: 100px;
+    text-align: center;
     color: #666666;
     font-size: 14px;
     font-style: italic;
@@ -70,18 +92,6 @@ main {
     display: block;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 48px;
-    display: block;
-    background-color: #4B4E6D;
-    color: #FFFFFF;
-    font-size: 1em;
-    font-weight: bold;
-}
-
 h1 {
     font-size: 24px;
     font-weight: bold;
@@ -97,8 +107,8 @@ h2 {
 }
 
 button {
-    -webkit-border-radius: 15;
-    -moz-border-radius: 15;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
     border-radius: 15px;
     color: #444444;
     font-size: 16px;
