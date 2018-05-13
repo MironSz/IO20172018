@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %}{% load i18n %}
 
 {% block head %}
 <style>
@@ -12,6 +12,6 @@
 {% endblock %}
 
 {% block main %}
-<h1>Witaj w serwisie TrendSpotter.</h1>
-<p class="sub-title">Wybierz jedną z opcji z paska nawigacji.</p>
+<h1>{% trans "Witaj w serwisie TrendSpotter." %}</h1>
+<p class="sub-title">{% trans "Wybierz jedną z opcji z paska nawigacji." %}</p>
 {% endblock %}

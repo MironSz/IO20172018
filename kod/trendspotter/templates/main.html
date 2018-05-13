@@ -1,4 +1,4 @@
-{% load static %}{% spaceless %}
+{% load static %}{% load i18n %}{% spaceless %}
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -19,15 +19,15 @@
     <nav><ul>
         <li>
             <a class="nav-link" href="/search"><i class="fa fa-search"></i></a>
-            <div class="popup-info">WYSZUKAJ</div>
+            <div class="popup-info">{% trans "WYSZUKAJ" %}</div>
         </li>
         <li>
             <a class="nav-link" href="/topresults"><i class="fas fa-list-ol"></i></a>
-            <div class="popup-info">RANKING</div>
+            <div class="popup-info">{% trans "RANKING" %}</div>
         </li>
         <li>
             <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i></a>
-            <div class="popup-info">ZALOGUJ</div>
+            <div class="popup-info">{% trans "ZALOGUJ" %}</div>
         </li>
     </ul></nav>
 </header>
