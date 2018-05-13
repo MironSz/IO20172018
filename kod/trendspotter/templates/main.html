@@ -37,7 +37,7 @@
 </main>
 
 <script>
-    var navLinks = document.querySelectorAll('nav a.nav-link');
+    var navLinks = document.querySelectorAll('a.nav-link');
 
     for (var i = 0; i < navLinks.length; i++) {
         navLinks[i].addEventListener("mousemove", function (event) {
@@ -47,7 +47,7 @@
                 event.target.nextSibling.style.top = (y + 20) + 'px';
                 event.target.nextSibling.style.left = (x - 50) + 'px';
             }
-        });
+        }); {# FIXME: Block only follows when moving on padding area, not the element (Chromium 66.0) #}
     }
 </script>
 
