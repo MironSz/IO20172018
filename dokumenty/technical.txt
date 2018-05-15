@@ -1,0 +1,31 @@
+Projekt ma zostać napisany przy użyciu Django (Python) oraz technologii umożliwiających tworzenie stron internetowych (HTML+CSS+JS).
+
+Wymagania programistyczne:
+a. Model
+1. Baza danych musi zawierać następujące tabele:
+- Klient, który ma możliwość logowania i rejestracji. Może dziedziczyć po django.contrib.auth.User
+- Domena internetowa, która posiada nazwę
+- Komentarz
+- Słowo
+- Słowo które występuje w komentarzu
+- Zapytanie klienta o słowo w danym.
+2. Modele mają udostępniać następujące funkcje zwracające:
+- liczbę wystąpień wszystkich słów
+- liczbę wystąpień danego słowa
+- liczbę wystąpień danego słowa w danym przedziale czasowym
+- zbiór par (słowo, liczba wystąpień) [w każdym z trzech wyżej wymienionych wariantów]
+
+b. View
+1. Wyświetlanie danych musi korzystać z widoków i szablonów w Django.
+2. Serwer ma posiadać widoki:
+- logowania
+- rejestracji
+- wylogowania
+- zapytań
+- odpowiedzi (który może być połączony z widokiem zapytań)
+Ma on wyświetlać tabele wyspecyfikowane w ... przy użyciu JS i danych z bazy danych.
+
+c. Controler
+1. Crawler ma działać w tle w sposób przypominający działanie osobnego procesu. 
+W trakcie działania crawlera wszystkie funkcjonalności serwera mają być nadal dostępne. 
+Wyjątkiem jest początkowe wypełnienie bazy danych, które może mieć formę migracji.
