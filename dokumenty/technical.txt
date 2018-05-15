@@ -8,8 +8,8 @@ a. Model
 - Komentarz
 - Słowo
 - Słowo które występuje w komentarzu
-- Zapytanie klienta o słowo w danym.
-2. Modele mają udostępniać następujące funkcje zwracające:
+- Zapytanie klienta (na potrzeby historii zapytań)
+2. Model słowa ma udostępniać następujące funkcje zwracające:
 - liczbę wystąpień wszystkich słów
 - liczbę wystąpień danego słowa
 - liczbę wystąpień danego słowa w danym przedziale czasowym
@@ -23,9 +23,9 @@ b. View
 - wylogowania
 - zapytań
 - odpowiedzi (który może być połączony z widokiem zapytań)
-Ma on wyświetlać tabele wyspecyfikowane w ... przy użyciu JS i danych z bazy danych.
+Ma on wyświetlać tabele wyspecyfikowane w requirements_specification.pdf przy użyciu JS i danych z bazy danych.
 
 c. Controler
-1. Crawler ma działać w tle w sposób przypominający działanie osobnego procesu. 
+1. Crawler ma działać w tle jako osobny proces. 
 W trakcie działania crawlera wszystkie funkcjonalności serwera mają być nadal dostępne. 
 Wyjątkiem jest początkowe wypełnienie bazy danych, które może mieć formę migracji.
