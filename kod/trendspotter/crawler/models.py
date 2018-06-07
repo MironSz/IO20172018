@@ -15,6 +15,7 @@ class Domain(models.Model):
 
 class Comment(models.Model):
     time = models.DateTimeField()
+    domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
 
 class Word(models.Model):
     word = models.CharField(max_length=30, unique=True)

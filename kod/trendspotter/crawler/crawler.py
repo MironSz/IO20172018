@@ -67,7 +67,9 @@ def wp_scraper(domain, url):
                                                 and comment_class in tag.get('class'))
 
         print(comments)
-        return [reference['href'].lstrip('/') for reference in references]
+        output = [reference['href'].lstrip('/') for reference in references]
+        print(output)
+        return output
     return []
 
 
@@ -76,13 +78,14 @@ WP_DOMAIN = Domain(name="wiadomosci.wp.pl")
 DOMAINS = [ WP_DOMAIN ]
 
 CRAWLERS = [
-    Crawler("http://www." + str(WP_DOMAIN), wp_scraper, 5),
+    Crawler("http://www." + str(WP_DOMAIN), wp_scraper, 300),
 ]
 
 def one_time_crawling(*args, **kwargs):
-    for domain in DOMAINS:
-        domain.save()
+    pass
+    # for domain in DOMAINS:
+    #     domain.save()
 
-    logging.getLogger().setLevel(logging.INFO)
-    for crawler in CRAWLERS:
-        crawler.crawl()
+    # logging.getLogger().setLevel(logging.INFO)
+    # for crawler in CRAWLERS:
+    #     crawler.crawl()
