@@ -19,7 +19,7 @@ from . import views
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
-    path('search', views.SearchView.as_view(), name='search'),
-    path('topresults', views.RankingView.as_view(), name='ranking'),
-    path('login', views.LoginView.as_view(), name='login'),
+    path('search/', views.SearchView.as_view(), name='search'),
+    path('previous/', views.PreviousView.as_view(), name='previous'),
+    path('signup/', views.SignUpView.as_view(), name='signup'),
 ]

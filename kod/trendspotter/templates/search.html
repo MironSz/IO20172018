@@ -74,7 +74,7 @@
 <form action="" method="post" class="search-form">
     {% csrf_token %}
     <input type="search" id="search_phrase" name="search"
-           placeholder="{% trans 'Szukane frazy oddziel średnikami' %}" required>
+           placeholder="{% trans 'Szukane wyrazy oddziel średnikami' %}" required>
     <button type="submit">{% trans "SZUKAJ" %}</button>
     <div class="checkbox"><input type="checkbox" id="not_case_sensitive" name="case_ch">
         {% trans "Ignoruj wielkość liter" %}
