@@ -1,0 +1,32 @@
+{% extends 'main.html' %}{% load i18n %}
+
+{% block head %}
+    <style>
+        .center {
+            text-align: center;
+        }
+
+        p.right {
+            position: relative;
+            right: 39.2%;
+            text-align: right;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <h2>{% trans "Rejestracja" %}</h2>
+    <form method="post" class="center">
+        {% csrf_token %}
+        {% for field in form %}
+            <p class="right">
+                {{ field.label_tag }}{{ field }}
+                {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                {% endfor %}
+            </p>
+        {% endfor %}
+        <button type="submit">{% trans "Zarejestruj" %}</button>
+    </form>
+    <br>
+{% endblock %}

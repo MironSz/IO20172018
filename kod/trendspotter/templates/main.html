@@ -22,13 +22,24 @@
             <div class="popup-info">{% trans "WYSZUKAJ" %}</div>
         </li>
         <li>
-            <a class="nav-link" href="/topresults"><i class="fas fa-list-ol"></i></a>
-            <div class="popup-info">{% trans "RANKING" %}</div>
+            <a class="nav-link" href="/previous"><i class="fas fa-clipboard-list"></i></a>
+            <div class="popup-info">{% trans "OSTATNIO SZUKANE" %}</div>
+        </li>
+        {% if user.is_authenticated %}
+        <li>
+            <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></a>
+            <div class="popup-info">{% trans "WYLOGUJ" %}</div>
+        </li>
+        {% else %}
+        <li>
+            <a class="nav-link" href="/signup"><i class="fas fa-door-open"></i></a>
+            <div class="popup-info">{% trans "ZAREJESTRUJ" %}</div>
         </li>
         <li>
-            <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i></a>
+            <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a>
             <div class="popup-info">{% trans "ZALOGUJ" %}</div>
         </li>
+        {% endif %}
     </ul></nav>
 </header>
 

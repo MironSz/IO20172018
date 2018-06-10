@@ -27,7 +27,7 @@ class WordOccurence(models.Model):
 
 
 def date_filter(query_set, time_begin, time_end):
-    return query_set.filter(time_gte=time_begin, time__lte=time_end)
+    return query_set.filter(time__gte=time_begin, time__lte=time_end)
 
 class WordQuery(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)

@@ -1,0 +1,25 @@
+{% extends 'main.html' %}{% load i18n %}
+
+{% block head %}
+    <style>
+        .center {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <h2>{% trans "Ostatnio wyszukiwane słowa" %}</h2>
+
+    {% if words %}
+    <div>
+        <table  align="center" class="center">
+            {% for word in words %}
+            <tr>
+                <td><a>{{ word.word }}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+{% endblock %}
