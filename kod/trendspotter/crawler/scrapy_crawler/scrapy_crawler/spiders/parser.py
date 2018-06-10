@@ -1,4 +1,7 @@
 from scrapy.selector import Selector
+import re
+from _datetime import datetime,timedelta
+
 
 ex=['''
 <div class="ZAGLdcz">
@@ -139,6 +142,52 @@ ex=['''
     </div>
 </div>
 ''']
+
+
+def strIsTime(dateStr):
+    def fnormal(matchObj):
+        d = int(matchObj.group(1))
+        m = int(matchObj.group(2))
+        y = int(matchObj.group(3))
+        return datetime(year=y,month=m,day=d)
+    def fyesterday(matchObj):
+        curr  = datetime.now()
+        h = matchObj.group(2)
+        m = matchObj.group(3)
+        ago = timedelta(days=1)
+        result = curr.replace(hour=int(h),minute=int(m))
+        return result - ago
+    def fminutesAgo(matchObj):
+        curr  = datetime.now()
+        howManyMinutes = matchObj.group(1)
+        ago = timedelta(minutes=int(howManyMinutes))
+        return curr - ago
+    def fhoursAgo(matchObj):
+        curr  = datetime.now()
+        howManyHours = matchObj.group(1)
+        ago = timedelta(hours=int(howManyHours))
+        return curr - ago
+    def fdaysAgo(matchObj):
+        curr  = datetime.now()
+        howManyDays = matchObj.group(1)
+        ago = timedelta(days=int(howManyDays))
+        return curr - ago
+
+    functions = [fnormal,fyesterday,fminutesAgo,fhoursAgo,fdaysAgo]
+
+    patterns = ["(\d{2})-(\d{2})-(\d{4})",
+                "(wczoraj|yesterday)\s*\((\d{1,2}):(\d{2})\)",
+                "(\d{1,2})\s*min\s*temu",
+                "(\d{1,2})\s*h\s*temu",
+                "(\d{1,2})\s*(dni|days)\s*temu"]
+
+    for i in range(len(patterns)):
+        matchObj = re.search(patterns[i], dateStr)
+        if matchObj is not None:
+            print(patterns[i])
+            return functions[i](matchObj)
+    return datetime.now()
+
 
 def extract_comment(body):
   #MAIN_COMMENT_CLASS = 'ZAGLdcz'
