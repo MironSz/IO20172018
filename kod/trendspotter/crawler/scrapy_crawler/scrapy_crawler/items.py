@@ -23,7 +23,7 @@ class ScrapyComment(scrapy.Item):
         print(self)
 
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return self.__dict__['_values']
 
     def __repr__(self):
-        return self.toJSON()
+        return str(self.toJSON())
