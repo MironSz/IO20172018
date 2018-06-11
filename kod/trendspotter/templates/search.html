@@ -38,8 +38,14 @@
     #result_chart {
         margin: 0 auto;
         padding: 12px 0;
-        width: 500px;
-        height: 500px;
+        width: 600px;
+        height: 600px;
+    }
+
+    #result_message {
+        margin: 0 auto;
+        padding: 12px 12px 24px 12px;
+        font-size: smaller;
     }
 </style>
 
@@ -50,11 +56,10 @@
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Dzień', 'Przykładowe słowo 1', 'Przykładowe słowo 2'],
-            ['1', 10, 20],
-            ['2', 12, 21],
-            ['3', 15, 25],
-            ['4', 20, 27]
+            ['Dni temu'{% for word in result_words %}, '{{ word }}'{% endfor %}],
+            {% for day, array in result_occurrences %}
+            ['{{ day }}'{% for num in array %}, {{ num }}{% endfor %}],
+            {% endfor %}
         ]);
 
         var options = {
@@ -63,7 +68,10 @@
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('result_chart'));
+
+        {% if result_words %}
         chart.draw(data, options);
+        {% endif %}
     }
 </script>
 {% endblock %}
@@ -83,6 +91,13 @@
         {% trans "Ignoruj polskie znaki" %}
     </div>
 </form>
+
+{% if words_not_in_system %}
+<div id="result_message">
+    Podanych wyrazów nie odnaleziono w bazie:
+    {% for word in words_not_in_system %}{{ word }}, {% endfor %}
+</div>
+{% endif %}
 
 <div id="result_chart"></div>
 {% endblock %}
