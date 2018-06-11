@@ -9,7 +9,21 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import os
+import sys
+import django
+
+
 BOT_NAME = 'scrapy_crawler'
+
+DJANGO_PROJECT_PATH = '../trendspotter'
+DJANGO_SETTINGS_MODULE = 'trendspotter.settings'
+
+sys.path.insert(0, DJANGO_PROJECT_PATH)
+os.environ['DJANGO_SETTINGS_MODULE'] = DJANGO_SETTINGS_MODULE
+
+django.setup()
+
 
 SPIDER_MODULES = ['scrapy_crawler.spiders']
 NEWSPIDER_MODULE = 'scrapy_crawler.spiders'
@@ -78,9 +92,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'scrapy_crawler.pipelines.ScrapyCrawlerPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'scrapy_crawler.pipelines.ScrapyCrawlerPipeline': 30,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html

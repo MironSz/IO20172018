@@ -8,7 +8,8 @@ function main(splash)
         
   splash:set_viewport_full()
 
-  local buttons = {'_2eqe0jj', '_1rh9-ML', '_1YnfD5d', 'hPppTzo'};
+  local rodo = 'd2b1ms8'
+  local buttons = {rodo, '_2eqe0jj', '_1rh9-ML', '_1YnfD5d', 'hPppTzo'};
   local continue = false;
 
   local href = splash:jsfunc([[
