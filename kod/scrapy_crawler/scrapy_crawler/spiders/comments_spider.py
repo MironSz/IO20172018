@@ -21,12 +21,19 @@ class WPSpider(CommentSpider):
     name = "wp"
 
     allowed_domains = [
-      'wiadomosci.wp.pl'
+        'wiadomosci.wp.pl',
+        'gry.wp.pl',
+        'gwiazdy.wp.pl',
+        'kuchnia.wp.pl',
+        'kobieta.wp.pl',
+        'tech.wp.pl',
+        'moto.wp.pl',
+        'turystyka.wp.pl',
     ]
 
     lua_script_path = 'wp_script.lua'
 
-    BASE_URL = 'https://wiadomosci.wp.pl'
+    BASE_URL = 'https://www.wp.pl/'
 
     start_urls = [
         BASE_URL

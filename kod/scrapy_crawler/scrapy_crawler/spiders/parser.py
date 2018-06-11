@@ -37,7 +37,7 @@ def strIsTime(dateStr):
 
     patterns = ["(\d{2})-(\d{2})-(\d{4})",
                 "(wczoraj|yesterday)\s*\((\d{1,2}):(\d{2})\)",
-                "(\d{1,2})\s*min\s*temu",
+                "(\d{1,2})\s*min\.?\s*temu",
                 "(\d{1,2})\s*h\s*temu",
                 "(\d{1,2})\s*(dni|days)\s*temu"]
 

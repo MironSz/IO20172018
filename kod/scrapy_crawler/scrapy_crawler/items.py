@@ -9,13 +9,19 @@ import scrapy
 import json
 import crawler.models as models
 from django.db import transaction
+import re
 
+def cleanWord(word):
+    removedNumbers = re.sub("\d*"," ",word)
+    cleanedWord = re.sub("\W", " ",removedNumbers, re.UNICODE)
+    cleanedWord = re.sub("\s+", " ",cleanedWord, re.UNICODE)
+    return cleanedWord
 
 def remove(text, signs):
     for sign in signs:
         text = text.replace(sign, ' ')
     return text
-    
+
 
 class ScrapyComment(scrapy.Item):
     domain = scrapy.Field()
@@ -26,6 +32,7 @@ class ScrapyComment(scrapy.Item):
     def save(self):
         words = remove(self['text'], ['.', ',', '?', '!']).split(' ')
         words = list(filter(lambda x: x != '', words))
+        words = list(map(cleanWord, words))
         
         dom_obj, created = models.Domain.objects.get_or_create(name=self['domain'])
         if created:
