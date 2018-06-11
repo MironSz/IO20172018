@@ -2,9 +2,9 @@ import scrapy
 from scrapy_crawler.items import ScrapyComment
 from scrapy.selector import Selector
 import scrapy_crawler.spiders.parser as parser
-from abc import abstractmethod
 from scrapy_splash import SplashRequest
 from .parser import extract_comment
+import os
 
 
 class CommentSpider(scrapy.Spider):
@@ -23,11 +23,6 @@ class WPSpider(CommentSpider):
     allowed_domains = [
       'wiadomosci.wp.pl'
     ]
-
-    # COMMENT_CLASS = '_6HJWbe8' # _2lCN35y _3WEDIqD'
-    # SMALL_COMMENT_CLASS = '_2E9mzJr'
-    # READ_COMMENTS_CLASS = '_2eqe0jj'
-    # COMMENT_READ_ALL_CLASS = '_1rh9-ML'
 
     lua_script_path = 'wp_script.lua'
 
@@ -49,5 +44,6 @@ class WPSpider(CommentSpider):
             yield self.splash_request(link)
 
 
-with open(WPSpider.lua_script_path, 'r') as file:
+FOLDER_PATH = 'scrapy_crawler/spiders'
+with open(os.path.join(FOLDER_PATH, WPSpider.lua_script_path), 'r') as file:
     WPSpider.lua_script = file.read()

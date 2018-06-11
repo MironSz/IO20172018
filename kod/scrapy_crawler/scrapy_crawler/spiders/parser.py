@@ -2,7 +2,82 @@
 from scrapy.selector import Selector
 import re
 from datetime import datetime,timedelta
+import unittest
 
+def strIsTime(dateStr):
+    def fnormal(matchObj):
+        d = int(matchObj.group(1))
+        m = int(matchObj.group(2))
+        y = int(matchObj.group(3))
+        return datetime(year=y,month=m,day=d)
+    def fyesterday(matchObj):
+        curr  = datetime.now()
+        h = matchObj.group(2)
+        m = matchObj.group(3)
+        ago = timedelta(days=1)
+        result = curr.replace(hour=int(h),minute=int(m))
+        return result - ago
+    def fminutesAgo(matchObj):
+        curr  = datetime.now()
+        howManyMinutes = matchObj.group(1)
+        ago = timedelta(minutes=int(howManyMinutes))
+        return curr - ago
+    def fhoursAgo(matchObj):
+        curr  = datetime.now()
+        howManyHours = matchObj.group(1)
+        ago = timedelta(hours=int(howManyHours))
+        return curr - ago
+    def fdaysAgo(matchObj):
+        curr  = datetime.now()
+        howManyDays = matchObj.group(1)
+        ago = timedelta(days=int(howManyDays))
+        return curr - ago
+
+    functions = [fnormal,fyesterday,fminutesAgo,fhoursAgo,fdaysAgo]
+
+    patterns = ["(\d{2})-(\d{2})-(\d{4})",
+                "(wczoraj|yesterday)\s*\((\d{1,2}):(\d{2})\)",
+                "(\d{1,2})\s*min\s*temu",
+                "(\d{1,2})\s*h\s*temu",
+                "(\d{1,2})\s*(dni|days)\s*temu"]
+
+    for i in range(len(patterns)):
+        matchObj = re.search(patterns[i], dateStr)
+        if matchObj is not None:
+            # print(patterns[i])
+            return functions[i](matchObj)
+    return datetime.now()
+
+
+def extract_comment(body):
+  #MAIN_COMMENT_CLASS = 'ZAGLdcz'
+  #SUB_COMMENT_CLASS = '_1psQ5BP'
+  selector = Selector(text = body)
+  dclass = selector.xpath('//body/div/@class').extract()[0]
+  print(dclass)
+
+  comment = None
+  time = None
+
+  comment = selector.xpath('//p/span/span/text()').extract()[0]
+
+  old_times = selector.xpath('//span[@class="_1a6MrkE"]/div/span/text()').extract()
+  if old_times:
+    time = old_times[0]
+
+  new_times = selector.xpath('//div[@class="_3fn6S4H"]/following-sibling::span/text()').extract()
+  if new_times:
+    time = new_times[0]
+      
+  temp_time = selector.xpath('//span[@class="_2266F5s"]/span/text()').extract()
+  if temp_time:
+    time = temp_time[0]
+    
+  return {
+    'domain': 'wiadomosci.wp.pl',
+    'text': comment,
+    'time': strIsTime(time)
+  }
 
 ex=['''
 <div class="ZAGLdcz">
@@ -144,82 +219,34 @@ ex=['''
 </div>
 ''']
 
+class TestExtract(unittest.TestCase):
+    def test_extract_comment(self):
+        for body in ex:
+            res = extract_comment(body)
+            self.assertTrue(res['text'] is not None)
+            self.assertTrue(res['domain'] is not None)
+            forbidden = ['Czytaj Całość', 'Rozwiń Komentarz']
+            for text in forbidden:
+                for value in [res['text'], res['domain']]:
+                    self.assertFalse(text in value)
 
-def strIsTime(dateStr):
-    def fnormal(matchObj):
-        d = int(matchObj.group(1))
-        m = int(matchObj.group(2))
-        y = int(matchObj.group(3))
-        return datetime(year=y,month=m,day=d)
-    def fyesterday(matchObj):
-        curr  = datetime.now()
-        h = matchObj.group(2)
-        m = matchObj.group(3)
-        ago = timedelta(days=1)
-        result = curr.replace(hour=int(h),minute=int(m))
-        return result - ago
-    def fminutesAgo(matchObj):
-        curr  = datetime.now()
-        howManyMinutes = matchObj.group(1)
-        ago = timedelta(minutes=int(howManyMinutes))
-        return curr - ago
-    def fhoursAgo(matchObj):
-        curr  = datetime.now()
-        howManyHours = matchObj.group(1)
-        ago = timedelta(hours=int(howManyHours))
-        return curr - ago
-    def fdaysAgo(matchObj):
-        curr  = datetime.now()
-        howManyDays = matchObj.group(1)
-        ago = timedelta(days=int(howManyDays))
-        return curr - ago
+    # def test_upper(self):
+    #     self.assertEqual('foo'.upper(), 'FOO')
 
-    functions = [fnormal,fyesterday,fminutesAgo,fhoursAgo,fdaysAgo]
+    # def test_isupper(self):
+    #     self.assertTrue('FOO'.isupper())
+    #     self.assertFalse('Foo'.isupper())
 
-    patterns = ["(\d{2})-(\d{2})-(\d{4})",
-                "(wczoraj|yesterday)\s*\((\d{1,2}):(\d{2})\)",
-                "(\d{1,2})\s*min\s*temu",
-                "(\d{1,2})\s*h\s*temu",
-                "(\d{1,2})\s*(dni|days)\s*temu"]
+    # def test_split(self):
+    #     s = 'hello world'
+    #     self.assertEqual(s.split(), ['hello', 'world'])
+    #     # check that s.split fails when the separator is not a string
+    #     with self.assertRaises(TypeError):
+    #         s.split(2)
 
-    for i in range(len(patterns)):
-        matchObj = re.search(patterns[i], dateStr)
-        if matchObj is not None:
-            print(patterns[i])
-            return functions[i](matchObj)
-    return datetime.now()
+# if __name__ == '__main__':
+#     unittest.main()
 
+TestExtract().test_extract_comment()
 
-def extract_comment(body):
-  #MAIN_COMMENT_CLASS = 'ZAGLdcz'
-  #SUB_COMMENT_CLASS = '_1psQ5BP'
-  selector = Selector(text = body)
-  dclass = selector.xpath('//body/div/@class').extract()[0]
-  print(dclass)
-
-  comment = None
-  time = None
-
-  comment = selector.xpath('//span/span/text()').extract()[0]
-
-  old_times = selector.xpath('//span[@class="_1a6MrkE"]/div/span/text()').extract()
-  if old_times:
-    time = old_times[0]
-
-  new_times = selector.xpath('//div[@class="_3fn6S4H"]/following-sibling::span/text()').extract()
-  if new_times:
-    time = new_times[0]
-      
-  temp_time = selector.xpath('//span[@class="_2266F5s"]/span/text()').extract()
-  if temp_time:
-    time = temp_time[0]
-    
-  return {
-    'domain': 'wiadomosci.wp.pl',
-    'text': comment,
-    'time': time
-  }
-
-for body in ex:
-  print(extract_comment(body))
   
