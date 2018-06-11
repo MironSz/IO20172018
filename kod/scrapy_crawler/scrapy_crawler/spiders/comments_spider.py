@@ -15,7 +15,7 @@ class CommentSpider(scrapy.Spider):
             yield self.splash_request(url)
 
     def splash_request(self, url):
-        return SplashRequest(url=url, callback=self.parse, endpoint='execute', args ={ 'lua_source': self.lua_script})
+        return SplashRequest(url=url, callback=self.parse, endpoint='execute', args ={'lua_source': self.lua_script, 'timeout': 120})
 
 class WPSpider(CommentSpider):
     name = "wp"
@@ -30,6 +30,7 @@ class WPSpider(CommentSpider):
 
     start_urls = [
         BASE_URL
+        #'https://wiadomosci.wp.pl/coraz-wiecej-niemcow-chce-nosic-przy-sobie-bron-hukowo-alarmowa-czuja-sie-niepewnie-6062476040389761a'
     ]
 
     def parse(self, response):

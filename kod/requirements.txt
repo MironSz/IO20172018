@@ -1,0 +1,11 @@
+django==2.0.4
+xlrd
+ipython
+pylint
+mypy
+bs4
+scrapy
+scrapy-splash
+scrapy-djangoitem
+social-auth-app-django
+django-utils

@@ -28,7 +28,7 @@ django.setup()
 SPIDER_MODULES = ['scrapy_crawler.spiders']
 NEWSPIDER_MODULE = 'scrapy_crawler.spiders'
 
-SPLASH_URL = 'http://80.211.12.234:8050/'
+SPLASH_URL = 'http://80.211.12.234:8050/' # TODO change to localhost
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
@@ -39,7 +39,7 @@ HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 2
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay

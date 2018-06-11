@@ -8,16 +8,20 @@ function main(splash)
         
   splash:set_viewport_full()
 
-  local rodo = 'd2b1ms8'
-  local buttons = {rodo, '_2eqe0jj', '_1rh9-ML', '_1YnfD5d', 'hPppTzo'};
+  -- local rodo = 'd2b1ms8'
+  -- To confirm cookies' messages: uncomment rodo and add rodo to buttons.
+  local buttons = {'_2eqe0jj', '_1rh9-ML', '_1YnfD5d', 'hPppTzo'};
   local continue = false;
 
   local href = splash:jsfunc([[
   function() {
     var x = document.getElementsByTagName('a')
+    var domain = 'wiadomosci.wp.pl'
     var arr = []
     for(var i = 0; i < x.length; i++) {
-      arr.push(x[i].href)
+      if(x[i].href.includes(domain)) {
+        arr.push(x[i].href)
+      }
     }
     return arr
   }
@@ -61,7 +65,7 @@ function main(splash)
   end
   
 	return {
-  	num = res_link,
+  	buttons = res_link,
     comments = comments,
     links = href(),
 		-- html = splash:html(),
