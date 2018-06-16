@@ -12,7 +12,7 @@ from django.db import transaction
 import re
 
 def cleanWord(word):
-    removedNumbers = re.sub("\d*"," ",word)
+    removedNumbers = re.sub("\d+"," ",word)
     cleanedWord = re.sub("\W", " ",removedNumbers, re.UNICODE)
     cleanedWord = re.sub("\s+", " ",cleanedWord, re.UNICODE)
     return cleanedWord
